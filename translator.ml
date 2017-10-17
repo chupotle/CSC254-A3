@@ -572,7 +572,7 @@ and ast_ize_S (s:parse_tree) : ast_s =
   | PT_nt ("S", [PT_term "write"; expr])
         -> AST_write (ast_ize_expr expr)
   | PT_nt ("S", [PT_term "if"; expr; sl; PT_term "fi"])
-        -> AST_if ( (ast_ize_C expr), (ast_ize_SL sl))
+        -> AST_if ( (ast_ize_expr expr), (ast_ize_SL sl))
   | PT_nt ("S", [PT_term "do"; sl; PT_term "od"])
         -> AST_do (ast_ize_SL sl)
   | PT_nt ("S", [PT_term "check"; expr])
@@ -650,7 +650,7 @@ and ast_ize_expr_tail (lhs:ast_e) (tail:parse_tree) : ast_e =
 
 let rec translate (ast:ast_sl)
     :  string *  string
-    (* warnings  output_program *) = ...
+    (* warnings  output_program *) = ...*)
 
 and translate_sl (...
 
@@ -669,5 +669,3 @@ and translate_do (...
 and translate_check (...
 
 and translate_expr (...
-
-*)
