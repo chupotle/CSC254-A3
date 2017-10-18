@@ -665,17 +665,18 @@ let rec translate (ast:ast_sl)
   }
 
   int main()
-  {" ^ translate_sl( )
+  {" (*^ translate_sl( )*)
 
-
+(*
 and translate_sl (ast:ast_sl)
-  :  string *  string =
+  :  string * string =
   match ast with
-  |
+  | [] -> (" " , "}")
+
 
 and translate_s (ast:ast_s)
     :  string *  string =
-    match ast_s with
+    match ast with
 | AST_assign(id, expr) -> translate_assign id expr
 | AST_read(id)         -> translate_read id mem inp outp
 | AST_write(expr)      -> translate_write expr mem inp outp
@@ -685,25 +686,38 @@ and translate_s (ast:ast_s)
 | AST_error            -> raise (Failure "cannot interpret erroneous tree")
 
 and translate_assign (id:string) (expr:ast_e)
-    :  string *  string =
+    :  string =
+    (id ^ translate_expr expr)
 
 and translate_read (id:string)
     :  string *  string =
+    match id with
+    | [] -> ("getInt("^id^")")
 
 and translate_write (expr:ast_e)
     :  string *  string =
+    match id with
+    | [] -> "}"
 
 and translate_if (cond:ast_e) (sl:ast_sl)
     :  string *  string =
+    match id with
+    | [] -> "}"
 
 and translate_do (sl:ast_sl)
     :  string *  string =
+    match id with
+    | [] -> "}"
 
 and translate_check (cond:ast_e)
     :  string *  string =
+    match id with
+    | [] -> "}"
 
 and translate_expr (expr:ast_e)
-    :  string *  string =
-
+    :  string * string =
+    match id with
+    | [] -> "}"
+*)
 ;;
 print_string(snd(translate (ast_ize_P (parse ecg_parse_table sum_ave_prog))));
