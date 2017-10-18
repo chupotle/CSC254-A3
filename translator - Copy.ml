@@ -552,16 +552,16 @@ let rec ast_ize_P (p:parse_tree) : ast_sl =
   (* your code should replace the following line *)
   match p with
   | PT_nt ("P",[sl; PT_term "$$"])
-  -> ast_ize_SL sl
-  | _ -> raise (Failure "malformed parse tree in ast_ize_P")
+        -> ast_ize_SL sl
+  | _   -> raise (Failure "malformed parse tree in ast_ize_P")
 
 and ast_ize_SL (sl:parse_tree) : ast_sl =
   match sl with
   | PT_nt ("SL", [])
-  -> []
+        -> []
   | PT_nt ("SL",  [s; sll])
-  -> append [(ast_ize_S s)] (ast_ize_SL sll)
-  | _ -> raise (Failure "malformed parse tree in ast_ize_SL")
+        -> (ast_ize_S s) :: (ast_ize_SL sll)
+  | _   -> raise (Failure "malformed parse tree in ast_ize_SL")
 
 and ast_ize_S (s:parse_tree) : ast_s =
   match s with
@@ -572,12 +572,12 @@ and ast_ize_S (s:parse_tree) : ast_s =
   | PT_nt ("S", [PT_term "write"; expr])
         -> AST_write (ast_ize_expr expr)
   | PT_nt ("S", [PT_term "if"; expr; sl; PT_term "fi"])
-        -> AST_if ( (ast_ize_C expr), (ast_ize_SL sl))
+        -> AST_if ( (ast_ize_expr expr), (ast_ize_SL sl))
   | PT_nt ("S", [PT_term "do"; sl; PT_term "od"])
         -> AST_do (ast_ize_SL sl)
   | PT_nt ("S", [PT_term "check"; expr])
       	-> AST_check (ast_ize_expr expr)
-  | _ -> raise (Failure "malformed parse tree in ast_ize_S")
+  | _   -> raise (Failure "malformed parse tree in ast_ize_S")
 
 and ast_ize_expr (e:parse_tree) : ast_e =
   (* e is an R, E, T, or F parse tree node *)
@@ -594,7 +594,7 @@ and ast_ize_expr (e:parse_tree) : ast_e =
 		    -> AST_num num
   | PT_nt ("F", [PT_term "("; expr; PT_term ")"])
 		    -> ast_ize_expr expr
-  | _ -> raise (Failure "malformed parse tree in ast_ize_expr")
+  | _   -> raise (Failure "malformed parse tree in ast_ize_expr")
 
 and ast_ize_reln_tail (lhs:ast_e) (tail:parse_tree) : ast_e =
   (* lhs in an inheritec attribute.
@@ -614,25 +614,25 @@ and ast_ize_reln_tail (lhs:ast_e) (tail:parse_tree) : ast_e =
   		  -> AST_binop ("<>", lhs, ast_ize_expr rhs)
   | PT_nt ("ET", [])
   		  -> lhs
-  | _ -> raise (Failure "malformed parse tree in ast_ize_reln_tail")
+  | _   -> raise (Failure "malformed parse tree in ast_ize_reln_tail")
 
 and ast_ize_expr_tail (lhs:ast_e) (tail:parse_tree) : ast_e =
   (* lhs in an inherited attribute.
      tail is a TT or FT parse tree node *)
   match tail with
   | PT_nt ("TT", [PT_nt ("ao", [PT_term ao]); te; tte])
-	  -> ast_ize_expr_tail (AST_binop (ao, lhs, ast_ize_expr te)) tte
+        -> ast_ize_expr_tail (AST_binop (ao, lhs, ast_ize_expr te)) tte
   | PT_nt ("FT", [PT_nt ("mo", [PT_term mo]); ft; ftt])
-      -> ast_ize_expr_tail (AST_binop (mo, lhs, ast_ize_expr ft)) ftt
+        -> ast_ize_expr_tail (AST_binop (mo, lhs, ast_ize_expr ft)) ftt
   | PT_nt ("TT", [])
-      -> lhs
+        -> lhs
   | PT_nt ("FT", [])
-      -> lhs
+        -> lhs
   | PT_nt ("TT", _)
-    -> raise (Failure "TT @ ast_ize_expr_tail")
+        -> raise (Failure "TT @ ast_ize_expr_tail")
   | PT_nt ("FT", _)
-    -> raise (Failure "FT @ ast_ize_expr_tail")
-  | _ -> raise (Failure "malformed parse tree in ast_ize_expr_tail")
+        -> raise (Failure "FT @ ast_ize_expr_tail")
+  | _   -> raise (Failure "malformed parse tree in ast_ize_expr_tail")
 ;;
 
 (*******************************************************************
@@ -646,10 +646,10 @@ and ast_ize_expr_tail (lhs:ast_e) (tail:parse_tree) : ast_e =
    indicating their names and the lines on which the writes occur.  Your
    C program should contain code to check for dynamic semantic errors. *)
 
-(*  commented out so this code will complile
+(*  commented out so this code will complile*)
 
 let rec translate (ast:ast_sl)
-    :  string *  string
+    :  string * string
     (* warnings  output_program *) = ...
 
 and translate_sl (...
@@ -669,5 +669,3 @@ and translate_do (...
 and translate_check (...
 
 and translate_expr (...
-
-*)
