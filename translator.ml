@@ -656,11 +656,13 @@ let translate (ast:ast_sl)
 
 
   int getint() {
-
+    int input_value;
+    scanf("%d", &input_value);
+    return input_value;
   }
 
   void putint(int n) {
-
+    printf("%d", n);
   }" ^ translate_sl( )
 
 
