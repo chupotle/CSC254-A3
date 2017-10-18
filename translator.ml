@@ -647,7 +647,7 @@ and ast_ize_expr_tail (lhs:ast_e) (tail:parse_tree) : ast_e =
    C program should contain code to check for dynamic semantic errors. *)
 
 
-let translate (ast:ast_sl)
+let rec translate (ast:ast_sl)
     :  string *  string
     (* warnings  output_program *) =
 
@@ -657,18 +657,21 @@ let translate (ast:ast_sl)
 
   int getint() {
     int input_value;
-    scanf("%d", &input_value);
+    scanf(\"%d\", &input_value);
     return input_value;
   }
 
   void putint(int n) {
-    printf("%d", n);
-  }" ^ translate_sl( )
+    printf(\"%d\", n);
+  }
+
+  int main()
+  {" ^ translate_sl( )
 
 
-
-and translate_sl
 (*
+and translate_sl
+
 and translate_s (...
 
 and translate_assign (...
