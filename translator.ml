@@ -649,7 +649,7 @@ and ast_ize_expr_tail (lhs:ast_e) (tail:parse_tree) : ast_e =
 
 let translate (ast:ast_sl)
     :  string *  string
-    (* warnings  output_program *) = 
+    (* warnings  output_program *) =
 
     "","  #include <stdio.h>
   #include <stdlib.h>
@@ -661,12 +661,12 @@ let translate (ast:ast_sl)
 
   void putint(int n) {
 
-  }"
+  }" ^ translate_sl( )
 
 
-(*
+
 and translate_sl
-
+(*
 and translate_s (...
 
 and translate_assign (...
@@ -682,9 +682,7 @@ and translate_do (...
 and translate_check (...
 
 and translate_expr (...
-<<<<<<< HEAD
-=======
-*)
 
+*)
 ;;
 print_string(snd(translate (ast_ize_P (parse ecg_parse_table sum_ave_prog))));
