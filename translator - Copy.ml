@@ -572,7 +572,7 @@ and ast_ize_S (s:parse_tree) : ast_s =
   | PT_nt ("S", [PT_term "write"; expr])
         -> AST_write (ast_ize_expr expr)
   | PT_nt ("S", [PT_term "if"; expr; sl; PT_term "fi"])
-        -> AST_if ( (ast_ize_expr expr), (ast_ize_SL sl))
+        -> AST_if ( (ast_ize_C expr), (ast_ize_SL sl))
   | PT_nt ("S", [PT_term "do"; sl; PT_term "od"])
         -> AST_do (ast_ize_SL sl)
   | PT_nt ("S", [PT_term "check"; expr])
@@ -646,29 +646,13 @@ and ast_ize_expr_tail (lhs:ast_e) (tail:parse_tree) : ast_e =
    indicating their names and the lines on which the writes occur.  Your
    C program should contain code to check for dynamic semantic errors. *)
 
+(*  commented out so this code will complile
 
-let translate (ast:ast_sl)
+let rec translate (ast:ast_sl)
     :  string *  string
-<<<<<<< HEAD
-    (* warnings  output_program *) = ...*)
-=======
-    (* warnings  output_program *) =
-    "","  #include <stdio.h>
-  #include <stdlib.h>
->>>>>>> has-a-main
+    (* warnings  output_program *) = ...
 
-  int getint() {
-    ... // returns an integer from standard input or
-        // prints an appropriate error message and dies.
-  }
-
-  void putint(int n) {
-    ... // prints an integer and a linefeed to standard output.
-  }"
-
-
-(*
-and translate_sl
+and translate_sl (...
 
 and translate_s (...
 
@@ -685,10 +669,5 @@ and translate_do (...
 and translate_check (...
 
 and translate_expr (...
-<<<<<<< HEAD
-=======
-*)
 
-;;
-print_string(snd(translate (ast_ize_P (parse ecg_parse_table sum_ave_prog))));
->>>>>>> has-a-main
+*)
