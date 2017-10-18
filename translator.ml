@@ -648,8 +648,7 @@ and ast_ize_expr_tail (lhs:ast_e) (tail:parse_tree) : ast_e =
 
 
 let rec translate (ast:ast_sl)
-    :  string *  string
-    (* warnings  output_program *) =
+    :  string *  string =
 
     "","  #include <stdio.h>
   #include <stdlib.h>
@@ -669,25 +668,42 @@ let rec translate (ast:ast_sl)
   {" ^ translate_sl( )
 
 
-(*
-and translate_sl
+and translate_sl (ast:ast_sl)
+  :  string *  string =
+  match ast with
+  |
 
-and translate_s (...
+and translate_s (ast:ast_s)
+    :  string *  string =
+    match ast_s with
+| AST_assign(id, expr) -> translate_assign id expr
+| AST_read(id)         -> translate_read id mem inp outp
+| AST_write(expr)      -> translate_write expr mem inp outp
+| AST_if(cond, sl)     -> translate_if cond sl mem inp outp
+| AST_do(sl)           -> translate_do sl mem inp outp
+| AST_check(cond)      -> translate_check cond mem inp outp
+| AST_error            -> raise (Failure "cannot interpret erroneous tree")
 
-and translate_assign (...
+and translate_assign (id:string) (expr:ast_e)
+    :  string *  string =
 
-and translate_read (...
+and translate_read (id:string)
+    :  string *  string =
 
-and translate_write (...
+and translate_write (expr:ast_e)
+    :  string *  string =
 
-and translate_if (...
+and translate_if (cond:ast_e) (sl:ast_sl)
+    :  string *  string =
 
-and translate_do (...
+and translate_do (sl:ast_sl)
+    :  string *  string =
 
-and translate_check (...
+and translate_check (cond:ast_e)
+    :  string *  string =
 
-and translate_expr (...
+and translate_expr (expr:ast_e)
+    :  string *  string =
 
-*)
 ;;
 print_string(snd(translate (ast_ize_P (parse ecg_parse_table sum_ave_prog))));
