@@ -649,21 +649,18 @@ and ast_ize_expr_tail (lhs:ast_e) (tail:parse_tree) : ast_e =
 
 let translate (ast:ast_sl)
     :  string *  string
-<<<<<<< HEAD
-    (* warnings  output_program *) = ...*)
-=======
-    (* warnings  output_program *) =
+    (* warnings  output_program *) = 
+
     "","  #include <stdio.h>
   #include <stdlib.h>
->>>>>>> has-a-main
+
 
   int getint() {
-    ... // returns an integer from standard input or
-        // prints an appropriate error message and dies.
+
   }
 
   void putint(int n) {
-    ... // prints an integer and a linefeed to standard output.
+
   }"
 
 
@@ -691,4 +688,3 @@ and translate_expr (...
 
 ;;
 print_string(snd(translate (ast_ize_P (parse ecg_parse_table sum_ave_prog))));
->>>>>>> has-a-main
